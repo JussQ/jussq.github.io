@@ -68,11 +68,28 @@
                     
                     template = '<table><tr colspan="2"><td><h2>Детали игры</h2></td></tr>';
                     
-                    developers = text.find("b:contains('Разработчики')").parent().next().find("div > a").html();
+                    developers = text.find("b:contains('Разработчики')").parent().next().find("div > a").text();
                     console.log(developers);
                     
-                    publisher = text.find("b:contains('Издатель')").parent().next().find("div > a").html();
+                    publisher = text.find("b:contains('Издатель')").parent().next().find("div > a").text();
                     console.log(publisher);
+                    
+                    partSeries = text.find("b:contains('Часть серии')").parent().next().find("div > i > a").text();
+                    console.log(partSeries);
+                    
+                    dateAnnouncement = text.find("b:contains('Дата анонса')").parent().next().find("div").text();
+                    console.log(dateAnnouncement);
+                    
+                    var dates = {};
+                    text.find("b:contains('Даты выпуска')").parent().next().find("span").each(function(){
+                        dates = {
+                            "1": "asdasd",
+                            "2": "sadsd"
+                        };
+                        console.log(dates);
+                        console.log($(this).next().text());
+                    });
+                    console.log(text.find("b:contains('Даты выпуска')").parent().next().text());
                     
                     template = '</table>';
 
