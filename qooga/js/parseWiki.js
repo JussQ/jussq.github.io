@@ -66,32 +66,67 @@
                         gameMode;
                     var template = '';
                     
-                    template = '<table><tr colspan="2"><td><h2>Детали игры</h2></td></tr>';
+                    template += '<table><tr><td><h2>Детали игры</h2></td></tr>';
                     
                     developers = text.find("b:contains('Разработчики')").parent().next().find("div > a").text();
+                    template += '<tr><td>Разработчики</td><td>' + developers + '</td></tr>';
                     console.log(developers);
                     
                     publisher = text.find("b:contains('Издатель')").parent().next().find("div > a").text();
+                    template += '<tr><td>Издатель</td><td>' + publisher + '</td></tr>';
                     console.log(publisher);
                     
                     partSeries = text.find("b:contains('Часть серии')").parent().next().find("div > i > a").text();
+                    template += '<tr><td>Часть серии</td><td>' + partSeries + '</td></tr>';
                     console.log(partSeries);
                     
                     dateAnnouncement = text.find("b:contains('Дата анонса')").parent().next().find("div").text();
+                    template += '<tr><td>Дата анонса</td><td>' + dateAnnouncement + '</td></tr>';
                     console.log(dateAnnouncement);
                     
-                    var dates = {};
-                    text.find("b:contains('Даты выпуска')").parent().next().find("span").each(function(){
-                        dates = {
-                            "1": "asdasd",
-                            "2": "sadsd"
-                        };
-                        console.log(dates);
-                        console.log($(this).next().text());
-                    });
-                    console.log(text.find("b:contains('Даты выпуска')").parent().next().text());
                     
-                    template = '</table>';
+                    // доработать вывод даты
+                    var releaseDateT = text.find("b:contains('Даты выпуска')").parent().next().find("span");
+                    var dates = {};
+                    var datesLength = 0;
+                    var _splitDate = releaseDateT.parent().text().split('\n');
+                    
+                    releaseDateT.each(function(e){
+                        var dataDates = _splitDate[e].substr(1).split(' ');
+                        
+                        dates[e] = {
+                            day: dataDates[0],
+                            monthName: dataDates[1],
+                            year: dataDates[2],
+                            yearPrefix: dataDates[3]
+                        };
+                        
+                        datesLength = e;
+                    });
+                    
+                    template += '<tr><td>Даты выпуска</td><td>' + dates[0].day + '-' + dates[datesLength].day + ' ' + dates[0].monthName + ' ' + dates[0].year + ' ' + dates[0].yearPrefix + ' <span style="color:red;">(need optimize this view template for date)</span></td></tr>';
+                    
+                    genre = text.find("a[title='Классификация компьютерных игр']").parent().parent().next().find("a").text();
+                    template += '<tr><td>Жанр</td><td>' + genre + '</td></tr>';
+                    console.log(genre);
+                    
+                    platform = text.find("a[title='Компьютерная платформа']").parent().parent().next().text();
+                    var platforms = {};
+                    
+                    template += '<tr><td>Платформы</td><td>' + platform + ' <span style="color:red;">(need optimize this view template for platforms)</span></td></tr>';
+                    console.log(platform);
+                    
+                    gameEngine = text.find("a[title='Игровой движок']").parent().parent().next().text();
+                    template += '<tr><td>Игровой движок</td><td>' + gameEngine + '</td></tr>';
+                    console.log(gameEngine);
+                    
+                    gameMode = text.find("b:contains('Режим игры')").parent().next().text();
+                    template += '<tr><td>Режим игры</td><td>' + gameMode + ' <span style="color:red;">(need optimize this view template for gameMode)</span></td></tr>';
+                    console.log(gameMode);
+                    
+                    template += '</table>';
+                    
+                    $("#details_game").html(template);
 
                     console.log(data);
                 },

@@ -50,9 +50,7 @@
 	<h3>TESTING WIKIPARSE</h3>
         <div id="title">Title|Название : </div>
         <div id="genre">Genre|Жанр : </div>
-        <div id="details_game">
-            
-        </div>
+        <div id="details_game"></div>
         
         
         <br><br><br><br><br><br><br><br><br><br><br><br>
